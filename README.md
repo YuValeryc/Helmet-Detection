@@ -2,6 +2,9 @@
 
 A Flask-based web application that uses YOLOv8 for detecting helmets in images. This application allows users to upload images and get real-time helmet detection results.
 
+## Demo
+![Demo](static/demo.gif)
+
 ## Features
 
 - Image upload functionality
