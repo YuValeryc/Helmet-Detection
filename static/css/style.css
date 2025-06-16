@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f0f2f5;
+    color: #1c1e21;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+    border: 1px solid #dddfe2;
+}
+
+h1 {
+    color: #1877f2;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+p {
+    color: #606770;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.upload-form {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border: 2px dashed #ccd0d5;
+    padding: 30px;
+    border-radius: 8px;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.upload-form:hover {
+    background-color: #f7f8fa;
+    border-color: #1877f2;
+}
+
+.input-file {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.input-file + label {
+    font-size: 1.1em;
+    font-weight: 500;
+    color: #1877f2;
+    background-color: #e7f3ff;
+    display: inline-block;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: 1px solid #1877f2;
+    border-radius: 6px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.input-file:focus + label,
+.input-file + label:hover {
+    background-color: #1877f2;
+    color: #fff;
+}
+
+#file-name {
+    display: block;
+    margin-top: 15px;
+    font-style: italic;
+    color: #606770;
+}
+
+.btn-submit {
+    background-color: #42b72a;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1em;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+.btn-submit:hover {
+    background-color: #36a420;
+}
+
+.result-section {
+    margin-top: 40px;
+}
+
+.image-container {
+    margin: 20px auto;
+    border: 1px solid #dddfe2;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #f7f8fa;
+}
+
+.image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.btn-try-again {
+    display: inline-block;
+    text-decoration: none;
+    background-color: #1877f2;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    transition: background-color 0.3s;
+    font-weight: 500;
+}
+
+.btn-try-again:hover {
+    background-color: #166fe5;
+}
+
+.flash-message {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.flash-message.error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+footer {
+    margin-top: auto;
+    padding: 20px 0;
+    color: #90949c;
+}

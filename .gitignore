@@ -1,0 +1,39 @@
+# Bytecode and cache
+__pycache__/
+*.py[cod]
+*.so
+.pytest_cache/
+.cache/
+coverage.xml
+data/
+*.cover
+
+# Virtual environments
+venv/
+
+# IDE
+.vscode/
+.idea/
+
+# Build
+build/
+dist/
+*.egg-info/
+*.egg
+
+# YOLO / Ultralytics
+runs/
+*.pt
+
+# Weights and output (but keep README or demo images)
+weights/
+!weights/README.md
+output/
+!output/demo_result.gif
+!output/confusion_matrix.png
+
+# Upload folders (for web)
+static/uploads/
+static/results/
+!static/uploads/.gitkeep
+!static/results/.gitkeep

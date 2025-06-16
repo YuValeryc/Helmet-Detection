@@ -1,0 +1,7 @@
+Flask
+ultralytics
+opencv-python
+torch
+torchvision
+numpy>=1.22.2
+gunicorn

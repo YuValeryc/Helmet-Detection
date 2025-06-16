@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helmet Detection Demo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>🚦 YOLOv8 Helmet Detection Demo</h1>
+        <p>Tải lên một ảnh chứa người đi xe máy để hệ thống phát hiện và phân loại mũ bảo hiểm.</p>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <form action="/" method="post" enctype="multipart/form-data" class="upload-form">
+            <input type="file" name="file" id="file" class="input-file" required onchange="document.getElementById('file-name').textContent = this.files[0].name">
+            <label for="file">Chọn một ảnh...</label>
+            <span id="file-name">Chưa có file nào được chọn</span>
+            <button type="submit" class="btn-submit">Nhận diện</button>
+        </form>
+
+        {% if result_image %}
+            <div class="result-section">
+                <h2>Kết quả nhận diện</h2>
+                <div class="image-container">
+                    <img src="{{ result_image }}" alt="Detection Result">
+                </div>
+                <a href="/" class="btn-try-again">Thử ảnh khác</a>
+            </div>
+        {% endif %}
+    </div>
+    <footer>
+        <p>A project by YuValeryc</p>
+    </footer>
+</body>
+</html>
