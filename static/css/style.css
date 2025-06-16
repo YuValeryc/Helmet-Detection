@@ -152,3 +152,65 @@ footer {
     padding: 20px 0;
     color: #90949c;
 }
+
+.navigation-links {
+    margin-bottom: 20px;
+}
+
+.btn-nav {
+    display: inline-block;
+    text-decoration: none;
+    background-color: #5865f2;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    transition: background-color 0.3s;
+    font-weight: 500;
+}
+
+.btn-nav:hover {
+    background-color: #4752c4;
+}
+
+.media-container {
+    margin: 20px auto;
+    border: 1px solid #dddfe2;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #f7f8fa;
+}
+
+.media-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.webcam-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.video-box {
+    flex: 1;
+    min-width: 300px;
+    border: 1px solid #dddfe2;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #f7f8fa;
+}
+
+.video-box h3 {
+    margin-top: 0;
+    color: #1c1e21;
+}
+
+#video, #processed_image {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    background-color: #000;
+}

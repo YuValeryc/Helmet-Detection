@@ -9,7 +9,11 @@
 <body>
     <div class="container">
         <h1>🚦 YOLOv8 Helmet Detection Demo</h1>
-        <p>Tải lên một ảnh chứa người đi xe máy để hệ thống phát hiện và phân loại mũ bảo hiểm.</p>
+        <p>Tải lên một ảnh hoặc video để nhận diện. Hoặc thử nhận diện qua Webcam.</p>
+        
+        <div class="navigation-links">
+            <a href="/webcam" class="btn-nav">Chuyển sang Webcam</a>
+        </div>
         
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
@@ -18,26 +22,38 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
-        
+
         <form action="/" method="post" enctype="multipart/form-data" class="upload-form">
-            <input type="file" name="file" id="file" class="input-file" required onchange="document.getElementById('file-name').textContent = this.files[0].name">
-            <label for="file">Chọn một ảnh...</label>
+            <input type="file" name="file" id="file" class="input-file" required accept="image/png, image/jpeg, video/mp4, video/avi, video/mov, video/mkv">
+            <label for="file">Chọn ảnh hoặc video...</label>
             <span id="file-name">Chưa có file nào được chọn</span>
             <button type="submit" class="btn-submit">Nhận diện</button>
         </form>
 
-        {% if result_image %}
+        {% if result_file %}
             <div class="result-section">
                 <h2>Kết quả nhận diện</h2>
-                <div class="image-container">
-                    <img src="{{ result_image }}" alt="Detection Result">
+                <div class="media-container">
+                    {% if file_type == 'image' %}
+                        <img src="{{ url_for('static', filename=result_file) }}" alt="Detection Result">
+                    {% elif file_type == 'video' %}
+                        <h3>Đang xử lý video...</h3>
+                        <img src="{{ url_for('video_feed', filename=result_file) }}" alt="Video Stream" width="100%">
+                    {% endif %}
                 </div>
-                <a href="/" class="btn-try-again">Thử ảnh khác</a>
+                <a href="/" class="btn-try-again">Thử file khác</a>
             </div>
         {% endif %}
     </div>
     <footer>
-        <p>A project by YuValeryc</p>
+        <p>A project by [Tên của bạn]</p>
     </footer>
+
+    <script>
+        document.getElementById('file').addEventListener('change', function(e) {
+            var fileName = e.target.files[0] ? e.target.files[0].name : "Chưa có file nào được chọn";
+            document.getElementById('file-name').textContent = fileName;
+        });
+    </script>
 </body>
 </html>

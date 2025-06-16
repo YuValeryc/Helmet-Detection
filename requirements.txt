@@ -1,7 +1,10 @@
 Flask
+Flask-SocketIO
 ultralytics
 opencv-python
 torch
 torchvision
 numpy>=1.22.2
 gunicorn
+python-engineio
+python-socketio

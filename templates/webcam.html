@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webcam Helmet Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Include Socket.IO client library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>📷 Nhận diện qua Webcam</h1>
+        <p>Hệ thống sẽ xử lý luồng video trực tiếp từ webcam của bạn.</p>
+        <div class="navigation-links">
+            <a href="/" class="btn-nav">Quay lại trang Upload</a>
+        </div>
+        
+        <div class="webcam-container">
+            <div class="video-box">
+                <h3>Live Webcam</h3>
+                <video id="video" autoplay playsinline muted></video>
+            </div>
+            <div class="video-box">
+                <h3>Kết quả nhận diện</h3>
+                <img id="processed_image" src="">
+            </div>
+        </div>
+        <canvas id="canvas" style="display:none;"></canvas>
+    </div>
+
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // --- CẤU HÌNH ---
+            const FPS = 10; // Gửi 10 khung hình/giây đến server
+
+            // --- LẤY CÁC PHẦN TỬ HTML ---
+            const video = document.getElementById('video');
+            const canvas = document.getElementById('canvas');
+            const context = canvas.getContext('2d');
+            const processedImage = document.getElementById('processed_image');
+            
+            // --- KHỞI TẠO SOCKET.IO ---
+            // Đảm bảo kết nối đúng cách
+            const socket = io();
+
+            socket.on('connect', function() {
+                console.log('✅ Connected to server!');
+            });
+            
+            socket.on('disconnect', function() {
+                console.log('❌ Disconnected from server!');
+            });
+
+            // --- XỬ LÝ WEBCAM ---
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ video: true })
+                    .then(function (stream) {
+                        video.srcObject = stream;
+                        video.play();
+                    })
+                    .catch(function (error) {
+                        console.error("Lỗi khi truy cập webcam: ", error);
+                        alert("Không thể truy cập webcam. Vui lòng kiểm tra quyền truy cập của trình duyệt.");
+                    });
+            } else {
+                alert("Trình duyệt của bạn không hỗ trợ API webcam.");
+            }
+
+            // --- GỬI KHUNG HÌNH ĐẾN SERVER ---
+            const intervalId = setInterval(() => {
+                // Chỉ gửi khi video đã sẵn sàng
+                if (video.readyState === video.HAVE_ENOUGH_DATA) {
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                    let dataURL = canvas.toDataURL('image/jpeg', 0.8);
+                    socket.emit('image', dataURL);
+                }
+            }, 1000 / FPS);
+
+            // --- NHẬN VÀ HIỂN THỊ KẾT QUẢ TỪ SERVER ---
+            socket.on('response', function(data) {
+                // Cập nhật thẻ <img> với ảnh đã được xử lý
+                processedImage.src = 'data:image/jpeg;base64,' + data.image;
+            });
+
+            // --- DỌN DẸP KHI RỜI KHỎI TRANG ---
+            window.addEventListener('beforeunload', () => {
+                clearInterval(intervalId);
+                socket.disconnect();
+            });
+        });
+    </script>
+</body>
+</html>
